@@ -10,7 +10,7 @@ import mobile.huaman.photoncodechallenge.BaseView;
  * Created by Pablo on 12/20/2017.
  */
 
-public interface PhotonCodeChallengeContract {
+public interface Contract {
     interface View extends BaseView {
         void updateMatrix(int[] displayIntegerList);
 

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import mobile.huaman.photoncodechallenge.R;
 
-public class PhotonCodeChallengeActivity extends AppCompatActivity implements PhotonCodeChallengeContract.View {
+public class Activity extends AppCompatActivity implements Contract.View {
     private static final String TAG = "ActivityTag";
-    PhotonCodeChallengePresenter photonCodeChallengePresenter = new PhotonCodeChallengePresenter();
+    Presenter photonCodeChallengePresenter = new Presenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

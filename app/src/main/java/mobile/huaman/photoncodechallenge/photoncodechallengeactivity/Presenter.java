@@ -1,21 +1,19 @@
 package mobile.huaman.photoncodechallenge.photoncodechallengeactivity;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
  * Created by Pablo on 12/20/2017.
  */
 
-public class PhotonCodeChallengePresenter implements PhotonCodeChallengeContract.Presenter {
+public class Presenter implements Contract.Presenter {
     private static final String TAG = "Presenter";
-    PhotonCodeChallengeContract.View view;
-    ArrayList<Integer> pathway = new ArrayList<>();
-    int counter = 0;
+    Contract.View view;
+    ArrayList<Integer> pathwayLocation = new ArrayList<>();
+    int columnCounter = 0;
 
     @Override
-    public void attachView(PhotonCodeChallengeContract.View view) {
+    public void attachView(Contract.View view) {
         this.view = view;
     }
 
@@ -24,7 +22,7 @@ public class PhotonCodeChallengePresenter implements PhotonCodeChallengeContract
         this.view = null;
     }
 
-    public int searchInitialMinValueRow(int[][] cost) {
+    public int getInitialMinValueLocationFirstRow(int[][] cost) {
 
         int minValue = cost[0][0];
         int initialMinValueLocation = 0;
@@ -34,7 +32,7 @@ public class PhotonCodeChallengePresenter implements PhotonCodeChallengeContract
                 minValue = cost[i][0];
             }
         }
-        pathway.add(initialMinValueLocation + 1);
+        pathwayLocation.add(initialMinValueLocation + 1);
         return initialMinValueLocation;
     }
 
@@ -91,11 +89,11 @@ public class PhotonCodeChallengePresenter implements PhotonCodeChallengeContract
                 testingLowestColumn = testingColumn;
             }
             cost[testingLowestRow][testingLowestColumn] = testingLowestCost + currentLowestCost;
-            pathway.add(testingLowestRow + 1);
+            pathwayLocation.add(testingLowestRow + 1);
         }
 
-        counter++;
-        if (counter < cost[0].length - 1)
+        columnCounter++;
+        if (columnCounter < cost[0].length - 1)
             findPath(cost, testingLowestRow, testingLowestColumn, cost[testingLowestRow][testingLowestColumn], sampleId, criteria);
         else {
             String matrixStatus = "";
@@ -107,7 +105,7 @@ public class PhotonCodeChallengePresenter implements PhotonCodeChallengeContract
                 else
                     matrixStatus = "YES";
             if (criteria.equals("Start>50")) {
-                if (cost[0][pathway.get(0)] > 50)
+                if (cost[0][pathwayLocation.get(0)] > 50)
                     matrixStatus = "YES";
                 else
                     matrixStatus = "NO";
@@ -121,20 +119,24 @@ public class PhotonCodeChallengePresenter implements PhotonCodeChallengeContract
                     }
                 }
             }
-            view.matrixOutput(matrixStatus, cost[testingLowestRow][testingLowestColumn], pathway, sampleId);
+            view.matrixOutput(matrixStatus, cost[testingLowestRow][testingLowestColumn], pathwayLocation, sampleId);
         }
     }
 
-    private void minCostKiwi(int[][] cost, int row, int column, String sampleId, String criteria) {
-        int initialRow = searchInitialMinValueRow(cost);
+    private void initialSetUp(int[][] cost, int row, int column, String sampleId, String criteria) {
+        int initialRow = getInitialMinValueLocationFirstRow(cost);
         findPath(cost, initialRow, 0, cost[initialRow][0], sampleId, criteria);
     }
 
     @Override
     public void getMatrixSolution(int[][] matrixInput, int numRow, int numColumn, String sampleId, String criteria) {
-        pathway.clear();
-        this.counter = 0;
-        minCostKiwi(matrixInput, numRow, numColumn, sampleId, criteria);
+        pathwayLocation.clear();
+        this.columnCounter = 0;
+        initialSetUp(matrixInput, numRow, numColumn, sampleId, criteria);
+    }
+
+    public void onSomethingClicked(){
+
     }
 
 }
