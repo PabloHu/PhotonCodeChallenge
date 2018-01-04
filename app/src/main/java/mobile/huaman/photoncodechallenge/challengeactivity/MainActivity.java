@@ -1,4 +1,4 @@
-package mobile.huaman.photoncodechallenge.photoncodechallengeactivity;
+package mobile.huaman.photoncodechallenge.challengeactivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,15 +9,15 @@ import java.util.ArrayList;
 
 import mobile.huaman.photoncodechallenge.R;
 
-public class Activity extends AppCompatActivity implements Contract.View {
+public class MainActivity extends AppCompatActivity implements Contract.View {
     private static final String TAG = "ActivityTag";
-    Presenter photonCodeChallengePresenter = new Presenter();
+    Presenter presenter = new Presenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        photonCodeChallengePresenter.attachView(this);
+        presenter.attachView(this);
 
 
         // Sample 1 NOT WORKING
@@ -32,7 +32,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         String criteria = "none";
         int numRow = sample1.length;
         int numColumn = sample1[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample1, numRow, numColumn, "Sample 1", criteria);
+        presenter.getMatrixSolution(sample1, numRow, numColumn, "Sample 1", criteria);
 
 
         int[][] sample2 =
@@ -46,7 +46,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample2.length;
         numColumn = sample2[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample2, numRow, numColumn, "Sample 2", criteria);
+        presenter.getMatrixSolution(sample2, numRow, numColumn, "Sample 2", criteria);
 
 
         //sample 3
@@ -59,7 +59,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "<50";
         numRow = sample3.length;
         numColumn = sample3[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample3, numRow, numColumn, "Sample 3", criteria);
+        presenter.getMatrixSolution(sample3, numRow, numColumn, "Sample 3", criteria);
 
 
         //sample 4
@@ -70,7 +70,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample4.length;
         numColumn = sample4[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample4, numRow, numColumn, "Sample 4", criteria);
+        presenter.getMatrixSolution(sample4, numRow, numColumn, "Sample 4", criteria);
 
 
         //sample 5
@@ -85,7 +85,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample5.length;
         numColumn = sample5[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample5, numRow, numColumn, "Sample 5", criteria);
+        presenter.getMatrixSolution(sample5, numRow, numColumn, "Sample 5", criteria);
 
         try {
             //sample 6
@@ -98,7 +98,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
             criteria = "none";
             numRow = sample6.length;
             numColumn = sample6[0].length;
-            photonCodeChallengePresenter.getMatrixSolution(sample6, numRow, numColumn, "Sample 6", criteria = "none");
+            presenter.getMatrixSolution(sample6, numRow, numColumn, "Sample 6", criteria = "none");
         } catch (Exception e) {
             Log.d(TAG, "sample6:  non numberic input");
         }
@@ -110,7 +110,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
             criteria = "none";
             numRow = sample7.length;
             numColumn = sample7[0].length;
-            photonCodeChallengePresenter.getMatrixSolution(sample7, numRow, numColumn, "Sample 7", criteria);
+            presenter.getMatrixSolution(sample7, numRow, numColumn, "Sample 7", criteria);
         } catch (Exception e) {
             Log.d(TAG, "sample7: Invalid matrix");
         }
@@ -126,7 +126,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "Start>50";
         numRow = sample8.length;
         numColumn = sample8[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample8, numRow, numColumn, "Sample 8", criteria);
+        presenter.getMatrixSolution(sample8, numRow, numColumn, "Sample 8", criteria);
 
         // sample 9
         int[][] sample9 =
@@ -139,7 +139,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "oneValue>50";
         numRow = sample9.length;
         numColumn = sample9[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample9, numRow, numColumn, "Sample 9", criteria);
+        presenter.getMatrixSolution(sample9, numRow, numColumn, "Sample 9", criteria);
 
 
         // sample 10
@@ -153,7 +153,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample10.length;
         numColumn = sample10[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample10, numRow, numColumn, "Sample 10", criteria);
+        presenter.getMatrixSolution(sample10, numRow, numColumn, "Sample 10", criteria);
 
 
         // sample 11
@@ -168,7 +168,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample11.length;
         numColumn = sample11[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample11, numRow, numColumn, "Sample 11", criteria);
+        presenter.getMatrixSolution(sample11, numRow, numColumn, "Sample 11", criteria);
 
         // sample 12
         int[][] sample12 =
@@ -182,7 +182,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample12.length;
         numColumn = sample12[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample12, numRow, numColumn, "Sample 12", criteria);
+        presenter.getMatrixSolution(sample12, numRow, numColumn, "Sample 12", criteria);
 
         //sample 13
         int[][] sample13 =
@@ -194,7 +194,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         criteria = "none";
         numRow = sample13.length;
         numColumn = sample13[0].length;
-        photonCodeChallengePresenter.getMatrixSolution(sample13, numRow, numColumn, "Sample 13", criteria);
+        presenter.getMatrixSolution(sample13, numRow, numColumn, "Sample 13", criteria);
     }
 
     @Override
@@ -202,7 +202,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
 
         Log.d(TAG, "showError: ");
     }
-
+/*
     @Override
     public void updateMatrix(int[] displayIntegerList) {
 
@@ -219,7 +219,7 @@ public class Activity extends AppCompatActivity implements Contract.View {
         Toast.makeText(this, "" + a, Toast.LENGTH_SHORT).show();
 
     }
-
+*/
     @Override
     public void matrixOutput(String matrixStatus, int finalCost, ArrayList<Integer> pathway, String sampleId) {
         Log.d(TAG, "----------\n");

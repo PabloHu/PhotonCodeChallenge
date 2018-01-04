@@ -1,7 +1,6 @@
-package mobile.huaman.photoncodechallenge.photoncodechallengeactivity;
+package mobile.huaman.photoncodechallenge.challengeactivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import mobile.huaman.photoncodechallenge.BasePresenter;
 import mobile.huaman.photoncodechallenge.BaseView;
@@ -12,8 +11,6 @@ import mobile.huaman.photoncodechallenge.BaseView;
 
 public interface Contract {
     interface View extends BaseView {
-        void updateMatrix(int[] displayIntegerList);
-
         void matrixOutput(String matrixStatus, int finalCost, ArrayList<Integer> pathway, String sampleId);
 
 

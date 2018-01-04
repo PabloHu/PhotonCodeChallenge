@@ -1,4 +1,4 @@
-package mobile.huaman.photoncodechallenge.photoncodechallengeactivity;
+package mobile.huaman.photoncodechallenge.challengeactivity;
 
 import java.util.ArrayList;
 
@@ -135,8 +135,9 @@ public class Presenter implements Contract.Presenter {
         initialSetUp(matrixInput, numRow, numColumn, sampleId, criteria);
     }
 
-    public void onSomethingClicked(){
+    public String getSomething(String a){
 
+        return a;
     }
 
 }
