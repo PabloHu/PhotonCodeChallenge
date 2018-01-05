@@ -140,5 +140,11 @@ public class Presenter implements Contract.Presenter {
         return a;
     }
 
+    public boolean checkInput(int numRows, int numColumns, ){
+
+
+        return true;
+    }
+
 }
 

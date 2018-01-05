@@ -3,6 +3,7 @@ package mobile.huaman.photoncodechallenge.challengeactivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -12,12 +13,14 @@ import mobile.huaman.photoncodechallenge.R;
 public class MainActivity extends AppCompatActivity implements Contract.View {
     private static final String TAG = "ActivityTag";
     Presenter presenter = new Presenter();
+    Button btnCreateMatrix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         presenter.attachView(this);
+        btnCreateMatrix = (Button)  findViewById(R.id.btnCreateMatrix);
 
 
         // Sample 1 NOT WORKING
