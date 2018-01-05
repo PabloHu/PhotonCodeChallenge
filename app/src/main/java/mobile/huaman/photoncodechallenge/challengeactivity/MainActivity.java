@@ -1,9 +1,14 @@
 package mobile.huaman.photoncodechallenge.challengeactivity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
     private static final String TAG = "ActivityTag";
     Presenter presenter = new Presenter();
     Button btnCreateMatrix;
+    EditText etRows, etColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +27,24 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
         setContentView(R.layout.activity_main);
         presenter.attachView(this);
         btnCreateMatrix = (Button)  findViewById(R.id.btnCreateMatrix);
+        etRows = (EditText) findViewById(R.id.etRows);
+        etColumns = (EditText) findViewById(R.id.etColumns);
+
+        btnCreateMatrix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                presenter.checkValidMatrixSize(etRows.getText().toString(), etColumns.getText().toString());
+           //     presenter.checkValidMatrixSize(Integer.valueOf(etRows.getText().toString()), Integer.valueOf(etColumns.getText().toString()));
+             //   if(!etRows.getText().toString().equals("") && Integer.valueOf(etRows.getText().toString())>0)
 
 
+
+            }
+
+        });
+
+        /*
         // Sample 1 NOT WORKING
         int[][] sample1 =
                 {
@@ -198,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
         numRow = sample13.length;
         numColumn = sample13[0].length;
         presenter.getMatrixSolution(sample13, numRow, numColumn, "Sample 13", criteria);
+        */
     }
 
     @Override
@@ -239,6 +262,117 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
         }
         path += "]";
         Log.d(TAG, "" + path + "\n");
+    }
+
+    @Override
+    public void resultValidMatrixSize(boolean matrixStatus, final int[][] createdMatrix) {
+        if(matrixStatus == true)
+        {
+            final String[][] testMatrix = new String[createdMatrix.length][createdMatrix[0].length];
+            int currentRow=0;
+            Log.d(TAG, "resultValidMatrixSize: "+ testMatrix.length+"    "+testMatrix[0].length);
+            
+            Toast.makeText(this, ""+createdMatrix.length +"----"+createdMatrix[0].length, Toast.LENGTH_SHORT).show();
+
+            //----
+            while(currentRow<createdMatrix.length) {
+
+                Toast.makeText(this, "current row: "+currentRow, Toast.LENGTH_SHORT).show();
+            LayoutInflater li = LayoutInflater.from(MainActivity.this);
+            View promptsView = li.inflate(R.layout.custom_prompt, null);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    MainActivity.this);
+
+
+            alertDialogBuilder.setView(promptsView);
+
+            final EditText userInput = (EditText) promptsView
+                    .findViewById(R.id.etRowInput);
+            
+
+
+                final int finalCurrentRow = currentRow;
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        Toast.makeText(MainActivity.this, userInput.getText(), Toast.LENGTH_SHORT).show();
+
+                                        Log.d(TAG, "onClick: ");
+                                        /*
+String a = userInput.getText().toString();
+
+                                        for (int i = 0; i < a.length(); i++) {
+
+                                            if(String.valueOf(a.charAt(i)).matches("\n"))
+                                                Log.d(TAG, "char: NEW LINE");
+                                                        else
+
+                                            Log.d(TAG, "char: "+a.charAt(i));
+                                        }
+                                        */
+                                        String[] rowArrray = userInput.getText().toString().split(",");
+
+
+                                        for (int i = 0; i <testMatrix[0].length; i++) {
+                                          //  try {
+                                                testMatrix[finalCurrentRow][i] = rowArrray[i];
+                                          //  }
+                                         //   catch (Exception e){
+                                            //    Log.d(TAG, "onClick err: "+e.toString());
+                                          //  }
+                                         //   Log.d(TAG, "onClick: "+rowArrray[i]);
+                                        }
+
+                                        for (int i = 0; i < testMatrix.length; i++) {
+                                            for (int j = 0; j < testMatrix[0].length; j++) {
+                                                Log.d(TAG, "onClick matrix: "+ testMatrix[finalCurrentRow][i]);
+                                            }
+
+                                        }
+
+              Toast.makeText(MainActivity.this, ""+finalCurrentRow+"==========="+testMatrix.length, Toast.LENGTH_SHORT).show();
+                                        if((finalCurrentRow+1) > testMatrix.length)
+                                            presenter.userMatrixInput(testMatrix);
+
+                                      //  for (int i = 0; i < rowArrray.length ; i++) {
+                                      //      createdMatrix[finalCurrentRow][i] = Integer.parseInt(rowArrray[i]);
+                                       // }
+
+
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+                currentRow++;
+
+
+            }
+            /*
+            testMatrix[0][0]="hola";
+            Log.d(TAG, "resultValidMatrixSize: ------------------------------");
+            for (int i = 0; i < testMatrix.length; i++) {
+
+                for (int j = 0; j < testMatrix[0].length; j++) {
+                    Log.d(TAG, "resultValidMatrixSize: "+ testMatrix[i][j]);
+                }
+            }
+            */
+
+        }
     }
 
 

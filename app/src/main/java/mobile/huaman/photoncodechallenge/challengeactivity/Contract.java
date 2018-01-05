@@ -14,7 +14,7 @@ public interface Contract {
         void matrixOutput(String matrixStatus, int finalCost, ArrayList<Integer> pathway, String sampleId);
 
 
-
+        void resultValidMatrixSize(boolean matrixStatus, int[][] createdMatrix);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -22,6 +22,7 @@ public interface Contract {
 
         void getMatrixSolution(int[][]matrixInput, int numRow, int numColumn, String sampleId, String criteria);
 
+        void userMatrixInput(String[][]matrixInput);
 
     }
 }

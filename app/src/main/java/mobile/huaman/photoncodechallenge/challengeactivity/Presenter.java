@@ -1,5 +1,7 @@
 package mobile.huaman.photoncodechallenge.challengeactivity;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -135,15 +137,61 @@ public class Presenter implements Contract.Presenter {
         initialSetUp(matrixInput, numRow, numColumn, sampleId, criteria);
     }
 
-    public String getSomething(String a){
+    @Override
+    public void userMatrixInput(String[][] matrixInput) {
+
+        if(checkUserMatrixInputValidity(matrixInput)==true){
+            Log.d(TAG, "userMatrixInput: "+"OKAY");
+
+
+        }
+        else
+            Log.d(TAG, "userMatrixInput: NOT OKAY " );
+    }
+
+    //checks for non numeric
+    private boolean checkUserMatrixInputValidity(String[][] matrixInput) {
+
+        boolean userMatrixInputValidity = true;
+        for (int i = 0; i < matrixInput.length ; i++) {
+
+            for (int j = 0; j < matrixInput[0].length; j++) {
+                try {
+                    Integer.valueOf(matrixInput[i][j]);
+                    //userMatrixInputValidity = true;
+                }
+                catch (Exception e){
+                    userMatrixInputValidity = false;
+                }
+            }
+        }
+        return userMatrixInputValidity;
+    }
+
+    public String getSomething(String a) {
 
         return a;
     }
 
-    public boolean checkInput(int numRows, int numColumns, ){
+    public boolean checkInput(int numRows, int numColumns) {
 
 
         return true;
+    }
+
+    public void checkValidMatrixSize(String rows, String columns) {
+        boolean matrixStatus = false;
+        int validRows = 0, validColumns = 0;
+        int[][] createdMatrix = new int[0][0];
+        if (!rows.equals("") && Integer.valueOf(rows) > 0 && !columns.equals("") && Integer.valueOf(columns) > 0) {
+            matrixStatus = true;
+            validRows = Integer.valueOf(rows);
+            validColumns = Integer.valueOf(columns);
+            createdMatrix = new int[validRows][validColumns];
+        }
+
+
+        view.resultValidMatrixSize(matrixStatus, createdMatrix);
     }
 
 }

@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="number"
             />
         <EditText
             android:id="@+id/etColumns"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="number"
             />
     </LinearLayout>
 
