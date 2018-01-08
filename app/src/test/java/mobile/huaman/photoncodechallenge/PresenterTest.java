@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Pablo on 1/4/2018.
  */
 
-public class PresenterTest implements Contract.View{
+public class PresenterTest implements Contract.View {
 
     private static final String TAG = "PresenterTest";
     private Presenter presenter;
@@ -23,30 +23,20 @@ public class PresenterTest implements Contract.View{
     ArrayList<Integer> pathwayExpected = new ArrayList<>();
 
     @Before
-    public void setup(){
+    public void setup() {
         presenter = new Presenter();
         presenter.attachView(this);
     }
 
-    @Test
-    public  void simpleTest(){
-
-       String actual = presenter.getSomething("hello");
-       String expected = "hello";
-       assertEquals("Fail", expected,actual);
-    }
-
     // Sample 1 NOT WORKING
     @Test
-    public  void sample1(){
-        int[][] sample1 =
-                {
-                        {3, 4, 1, 2, 8, 6},
-                        {6, 1, 8, 2, 7, 4},
-                        {5, 9, 3, 9, 9, 5},
-                        {8, 4, 1, 3, 2, 6},
-                        {3, 7, 2, 8, 6, 4}
-                };
+    public void sample1() {
+        String sample = "3 4 1 2 8 6\n" +
+                "6 1 8 2 7 4\n" +
+                "5 9 3 9 9 5\n" +
+                "8 4 1 3 2 6\n" +
+                "3 7 2 8 6 4";
+        pathwayExpected.clear();
         pathwayExpected.add(1);
         pathwayExpected.add(2);
         pathwayExpected.add(3);
@@ -54,24 +44,18 @@ public class PresenterTest implements Contract.View{
         pathwayExpected.add(4);
         pathwayExpected.add(5);
 
-        String criteria = "none";
-        int numRow = sample1.length;
-        int numColumn = sample1[0].length;
-        presenter.getMatrixSolution(sample1, numRow, numColumn, "Sample 1", criteria);
-
-        assertEquals("Fail", pathwayLocation,pathwayExpected );
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayLocation, pathwayExpected);
     }
 
     @Test
-    public  void sample2(){
-        int[][] sample2 =
-                {
-                        {3, 4, 1, 2, 8, 6},
-                        {6, 1, 8, 2, 7, 4},
-                        {5, 9, 3, 9, 9, 5},
-                        {8, 4, 1, 3, 2, 6},
-                        {3, 7, 2, 1, 2, 3}
-                };
+    public void sample2() {
+        String sample = "3 4 1 2 8 6\n" +
+                        "6 1 8 2 7 4\n" +
+                        "5 9 3 9 9 5\n" +
+                        "8 4 1 3 2 6\n" +
+                        "3 7 2 1 2 3";
+
         pathwayExpected.clear();
         pathwayExpected.add(1);
         pathwayExpected.add(2);
@@ -80,41 +64,29 @@ public class PresenterTest implements Contract.View{
         pathwayExpected.add(4);
         pathwayExpected.add(5);
 
-        String criteria = "none";
-        int numRow = sample2.length;
-        int numColumn = sample2[0].length;
-        presenter.getMatrixSolution(sample2, numRow, numColumn, "Sample 2", criteria);
-
-        assertEquals("Fail", pathwayExpected, pathwayLocation );
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
     }
 
     @Test
-    public  void sample3(){
-        int[][] sample3 =
-                {
-                        {19, 10, 19, 10, 19},
-                        {21, 23, 20, 19, 12},
-                        {20, 12, 20, 11, 10}
-                };
+    public void sample3() {
+        String sample = "19 10 19 10 19\n" +
+                        "21 23 20 19 12\n" +
+                        "20 12 20 11 10";
+
         pathwayExpected.clear();
         pathwayExpected.add(1);
         pathwayExpected.add(1);
         pathwayExpected.add(1);
 
-        String criteria = "none";
-        int numRow = sample3.length;
-        int numColumn = sample3[0].length;
-        presenter.getMatrixSolution(sample3, numRow, numColumn, "Sample 3", criteria);
-
-        assertEquals("Fail", pathwayExpected, pathwayLocation );
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
     }
 
     @Test
-    public  void sample4(){
-        int[][] sample =
-                {
-                        {5, 8, 5, 3, 5}
-                };
+    public void sample4() {
+        String sample = "5 8 5 3 5";
+
         pathwayExpected.clear();
         pathwayExpected.add(1);
         pathwayExpected.add(1);
@@ -122,52 +94,153 @@ public class PresenterTest implements Contract.View{
         pathwayExpected.add(1);
         pathwayExpected.add(1);
 
-        String criteria = "none";
-        int numRow = sample.length;
-        int numColumn = sample[0].length;
-        presenter.getMatrixSolution(sample, numRow, numColumn, "Sample 4", criteria);
-
-        assertEquals("Fail", pathwayExpected, pathwayLocation );
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
     }
 
     @Test
-    public  void sample5(){
-        int[][] sample =
-                {
-                        {5},
-                        {8},
-                        {5},
-                        {3},
-                        {5}
-                };
+    public void sample5() {
+        String sample = "5\n" +
+                        "8\n" +
+                        "5\n" +
+                        "3\n" +
+                        "5";
+
         pathwayExpected.clear();
         pathwayExpected.add(4);
 
-        String criteria = "none";
-        int numRow = sample.length;
-        int numColumn = sample[0].length;
-        presenter.getMatrixSolution(sample, numRow, numColumn, "Sample 5", criteria);
-
-        assertEquals("Fail", pathwayExpected, pathwayLocation );
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
     }
 
     @Test
-    public  void sample6(){
-        int[][] sample =
-                {
-                        {5, 4, Integer.parseInt("H")},
-                        {8, Integer.parseInt("M"), 7},
-                        {5, 7, 5}
-                };
+    public void sample6() {
+        String sample = "5 4 H\n" +
+                        "8 M 7\n" +
+                        "5 7 5\n";
+
         pathwayExpected.clear();
 
 
         String criteria = "none";
-        int numRow = sample.length;
-        int numColumn = sample[0].length;
-        presenter.getMatrixSolution(sample, numRow, numColumn, "Sample 5", criteria);
+        presenter.userMatrixInput(sample);
 
-        assertEquals("Fail", pathwayExpected, pathwayLocation );
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample7() {
+        String sample = null;
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample8() {
+
+        String sample = "69 10 19 10 19\n" +
+                        "51 23 20 19 12\n" +
+                        "60 12 20 11 10";
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample9() {
+
+        String sample = "60 3 3 6\n" +
+                        "6 3 7 9\n" +
+                        "5 6 8 3";
+
+        pathwayExpected.clear();
+        pathwayExpected.add(3);
+        pathwayExpected.add(2);
+        pathwayExpected.add(1);
+        pathwayExpected.add(3);
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample10() {
+
+        String sample = "6 3 -5 9\n" +
+                        "-5 2 4 10\n" +
+                        "3 -2 6 10\n" +
+                        "6 -1 -2 10";
+
+        pathwayExpected.clear();
+        pathwayExpected.add(2);
+        pathwayExpected.add(3);
+        pathwayExpected.add(4);
+        pathwayExpected.add(1);
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample11() {
+
+        String sample = "51 51\n" +
+                        "0 51\n" +
+                        "51 51\n" +
+                        "5 5";
+        pathwayExpected.clear();
+        pathwayExpected.add(4);
+        pathwayExpected.add(4);
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample12() {
+
+        String sample = "51 51 51\n" +
+                        "0 51 51\n" +
+                        "51 51 51\n" +
+                        "5 5 51";
+        pathwayExpected.clear();
+        pathwayExpected.add(4);
+        pathwayExpected.add(4);
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
+    }
+
+    @Test
+    public void sample13() {
+
+        String sample = "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n" +
+                        "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2";
+        pathwayExpected.clear();
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+        pathwayExpected.add(1);
+
+        presenter.userMatrixInput(sample);
+        assertEquals("Fail", pathwayExpected, pathwayLocation);
     }
 
     @Override
@@ -176,9 +249,9 @@ public class PresenterTest implements Contract.View{
     }
 
     @Override
-    public void matrixOutput(String matrixStatus, int finalCost, ArrayList<Integer> pathway, String sampleId) {
+    public void matrixOutput(String matrixStatus, int finalCost, ArrayList<Integer> pathway) {
 
         pathwayLocation.clear();
-        pathwayLocation =pathway;
+        pathwayLocation = pathway;
     }
 }

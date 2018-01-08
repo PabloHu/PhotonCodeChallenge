@@ -38,8 +38,9 @@ public class Presenter implements Contract.Presenter {
         return initialMinValueLocation;
     }
 
-    private void findPath(int[][] cost, int currentRow, int currentColumn, int currentLowestCost, String sampleId, String criteria) {
+    private void findPath(int[][] cost, int currentRow, int currentColumn, int currentLowestCost) {
         int upCost = 0, upRightCost = 0, rightCost = 0, downRightCost = 0, downCost = 0;
+        String criteriaStatus = "TES";
         int testingLowestCost = currentLowestCost;
         int testingLowestRow = currentRow;
         int testingLowestColumn = currentColumn;
@@ -95,104 +96,66 @@ public class Presenter implements Contract.Presenter {
         }
 
         columnCounter++;
-        if (columnCounter < cost[0].length - 1)
-            findPath(cost, testingLowestRow, testingLowestColumn, cost[testingLowestRow][testingLowestColumn], sampleId, criteria);
-        else {
-            String matrixStatus = "";
-            if (criteria.equals("none"))
-                matrixStatus = "YES";
-            if (criteria.equals("<50"))
-                if (cost[testingLowestRow][testingLowestColumn] > 50)
-                    matrixStatus = "NO";
-                else
-                    matrixStatus = "YES";
-            if (criteria.equals("Start>50")) {
-                if (cost[0][pathwayLocation.get(0)] > 50)
-                    matrixStatus = "YES";
-                else
-                    matrixStatus = "NO";
-            }
-            if (criteria.equals("oneValue>50")) {
-                matrixStatus = "NO";
-                for (int i = 0; i < cost.length; i++) {
-                    for (int j = 0; j < cost[0].length; j++) {
-                        if (cost[i][j] > 50)
-                            matrixStatus = "YES";
-                    }
-                }
-            }
-            view.matrixOutput(matrixStatus, cost[testingLowestRow][testingLowestColumn], pathwayLocation, sampleId);
+        if (columnCounter < cost[0].length - 1) {
+
+            if (cost[0][testingLowestColumn] > 50) {
+                criteriaStatus = "NO";
+                view.matrixOutput(criteriaStatus, cost[testingLowestRow][testingLowestColumn], pathwayLocation);
+            } else
+                findPath(cost, testingLowestRow, testingLowestColumn, cost[testingLowestRow][testingLowestColumn]);
+        } else {
+//Criteria part 2
+            if (cost[testingLowestRow][testingLowestColumn] < 50)
+                criteriaStatus = "NO";
+            view.matrixOutput(criteriaStatus, cost[testingLowestRow][testingLowestColumn], pathwayLocation);
         }
     }
 
-    private void initialSetUp(int[][] cost, int row, int column, String sampleId, String criteria) {
-        int initialRow = getInitialMinValueLocationFirstRow(cost);
-        findPath(cost, initialRow, 0, cost[initialRow][0], sampleId, criteria);
-    }
-
-    @Override
-    public void getMatrixSolution(int[][] matrixInput, int numRow, int numColumn, String sampleId, String criteria) {
+    public void setupForPath(int[][] matrixInput) {
         pathwayLocation.clear();
         this.columnCounter = 0;
-        initialSetUp(matrixInput, numRow, numColumn, sampleId, criteria);
+        int initialRow = getInitialMinValueLocationFirstRow(matrixInput);
+        findPath(matrixInput, initialRow, 0, matrixInput[initialRow][0]);
+    }
+
+    //criteria
+    public boolean checkValidInput(String matrixInput) {
+        boolean inputStatus = false;
+
+        if (matrixInput != null) {
+            matrixInput = matrixInput.replace("\n", "").replace("\r", "");
+            matrixInput = matrixInput.replaceAll("\\s+", "");
+            inputStatus = matrixInput.matches("^[-?0-9]+$");
+        }
+        Log.d(TAG, "checkValidInput: " + inputStatus);
+
+        return inputStatus;
     }
 
     @Override
-    public void userMatrixInput(String[][] matrixInput) {
+    public void userMatrixInput(String matrixInput) {
 
-        if(checkUserMatrixInputValidity(matrixInput)==true){
-            Log.d(TAG, "userMatrixInput: "+"OKAY");
+        if (checkValidInput(matrixInput) == true) {
+            String[] rowInput = matrixInput.split("\n");
+            String[] columnInput = new String[0];
 
+            for (int i = 0; i < rowInput.length; i++) {
+                columnInput = rowInput[i].split(" ");
+            }
 
-        }
-        else
-            Log.d(TAG, "userMatrixInput: NOT OKAY " );
-    }
+            int[][] test = new int[rowInput.length][columnInput.length];
+            Log.d(TAG, "char: " + rowInput.length + "     " + columnInput.length);
 
-    //checks for non numeric
-    private boolean checkUserMatrixInputValidity(String[][] matrixInput) {
-
-        boolean userMatrixInputValidity = true;
-        for (int i = 0; i < matrixInput.length ; i++) {
-
-            for (int j = 0; j < matrixInput[0].length; j++) {
-                try {
-                    Integer.valueOf(matrixInput[i][j]);
-                    //userMatrixInputValidity = true;
-                }
-                catch (Exception e){
-                    userMatrixInputValidity = false;
+            for (int i = 0; i < rowInput.length; i++) {
+                columnInput = rowInput[i].split(" ");
+                for (int j = 0; j < columnInput.length; j++) {
+                    test[i][j] = Integer.valueOf(columnInput[j]);
                 }
             }
-        }
-        return userMatrixInputValidity;
+            //---Solve
+            setupForPath(test);
+        } else
+            view.showError("Invalid matrix");
     }
-
-    public String getSomething(String a) {
-
-        return a;
-    }
-
-    public boolean checkInput(int numRows, int numColumns) {
-
-
-        return true;
-    }
-
-    public void checkValidMatrixSize(String rows, String columns) {
-        boolean matrixStatus = false;
-        int validRows = 0, validColumns = 0;
-        int[][] createdMatrix = new int[0][0];
-        if (!rows.equals("") && Integer.valueOf(rows) > 0 && !columns.equals("") && Integer.valueOf(columns) > 0) {
-            matrixStatus = true;
-            validRows = Integer.valueOf(rows);
-            validColumns = Integer.valueOf(columns);
-            createdMatrix = new int[validRows][validColumns];
-        }
-
-
-        view.resultValidMatrixSize(matrixStatus, createdMatrix);
-    }
-
 }
 

@@ -6,23 +6,28 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvRowNumber"
+        android:text="Example Input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Row"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:src="@drawable/samplepic"/>
     <TextView
 
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="add comma after each number"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="Enter a space for a new row\n
+Enter a new line for a new row"
+
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/etRowInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <requestFocus />
 

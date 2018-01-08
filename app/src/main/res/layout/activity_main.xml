@@ -7,46 +7,7 @@
     android:orientation="vertical"
     tools:context="mobile.huaman.photoncodechallenge.challengeactivity.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="Rows"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            />
-        <TextView
-            android:text="Columns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/etRows"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            />
-        <EditText
-            android:id="@+id/etColumns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            />
-    </LinearLayout>
+
 
     <Button
         android:text="Create Matrix"
@@ -57,5 +18,21 @@
 
 
 
+    <TextView
+        android:text="Output:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
+    <TextView
+        android:id="@+id/tvCriteriaResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+    <TextView
+    android:id="@+id/tvMatrixResult"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:gravity="center"/>
 </LinearLayout>
